@@ -153,4 +153,10 @@ return {
 		table.freeze(self)
 		return self
 	end :: (<V>(initial: { V }?) -> VecDeque<V>) & (<V>() -> VecDeque<V>),
+	isVecDeque = function(value: unknown?): boolean
+		if typeof(value) == "table" then
+			return getmetatable(value :: any) == VecDeque
+		end
+		return false
+	end,
 }
