@@ -31,12 +31,10 @@ type VecDequeImpl<V> = {
 	front: (self: VecDeque<V>) -> Option<V>,
 	back: (self: VecDeque<V>) -> Option<V>,
 	sort: (self: VecDeque<V>, comparator: (a: V, b: V) -> boolean) -> () & (self: VecDeque<V>) -> (),
-	[number]: never,
 }
 export type VecDeque<V> = typeof(setmetatable(
 	{} :: {
 		_queue: { V },
-		[number]: never,
 	},
 	{} :: VecDequeImpl<V>
 ))
