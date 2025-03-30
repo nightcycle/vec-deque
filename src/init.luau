@@ -2,6 +2,7 @@
 -- Services
 -- Packages
 local Option = require("@wally/Option")
+local Error = require("@wally/Error")
 -- Modules
 -- Types
 type Option<V> = Option.Option<V>
@@ -47,7 +48,7 @@ local VecDeque = {} :: VecDequeImpl<any>
 VecDeque.__index = VecDeque
 
 function VecDeque.__tostring(self: VecDeque<any>): string
-	return "VecDeque(" .. table.concat(self._queue, ", ") .. ")"
+	return "VecDeque(" .. Error.displayAsJson(self._queue) .. ")"
 end
 function VecDeque.__len(self: VecDeque<any>): number
 	return #self._queue

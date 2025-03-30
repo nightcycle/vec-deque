@@ -9,3 +9,4 @@ exclude = ["Packages", ".vscode"]
 
 [dependencies]
 Option = "nightcycle/option@^0"
+Error = "nightcycle/error@^0"
