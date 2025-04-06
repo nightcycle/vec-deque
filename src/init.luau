@@ -1,8 +1,8 @@
 --!strict
 -- Services
 -- Packages
-local Option = require("@wally/Option")
-local Error = require("@wally/Error")
+local Option = require("@pkg/@nightcycle/option")
+local Error = require("@pkg/@nightcycle/error")
 -- Modules
 -- Types
 type Option<V> = Option.Option<V>
