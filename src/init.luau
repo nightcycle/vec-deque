@@ -12,33 +12,34 @@ type Entry<V> = {
 }
 type VecDequeImpl<V> = {
 	__index: VecDequeImpl<V>,
-	__tostring: (self: VecDeque<V>) -> string,
-	__len: (self: VecDeque<V>) -> number,
-	__iter: (self: VecDeque<V>) -> { Entry<V> },
-	contains: (self: VecDeque<V>, value: V) -> boolean,
-	clear: (self: VecDeque<V>) -> (),
-	drain: (self: VecDeque<V>) -> { V },
-	extend: (self: VecDeque<V>, slice: { V }) -> (),
-	get: (self: VecDeque<V>, index: number) -> Option<V>,
-	insert: (self: VecDeque<V>, index: number, value: V) -> (),
-	popBack: (self: VecDeque<V>) -> Option<V>,
-	popFront: (self: VecDeque<V>) -> Option<V>,
-	pushBack: (self: VecDeque<V>, value: V) -> (),
-	pushFront: (self: VecDeque<V>, value: V) -> (),
-	remove: (self: VecDeque<V>, index: number) -> Option<V>,
-	retain: (self: VecDeque<V>, predicate: (value: V) -> boolean) -> (),
-	isEmpty: (self: VecDeque<V>) -> boolean,
-	append: (self: VecDeque<V>, other: VecDeque<V>) -> (),
-	front: (self: VecDeque<V>) -> Option<V>,
-	back: (self: VecDeque<V>) -> Option<V>,
-	sort: (self: VecDeque<V>, comparator: (a: V, b: V) -> boolean) -> () & (self: VecDeque<V>) -> (),
+	__tostring: (self: any) -> string,
+	__len: (self: any) -> number,
+	__iter: (self: any) -> { Entry<V> },
+	contains: (self: any, value: V) -> boolean,
+	clear: (self: any) -> (),
+	drain: (self: any) -> { V },
+	extend: (self: any, slice: { V }) -> (),
+	get: (self: any, index: number) -> Option<V>,
+	insert: (self: any, index: number, value: V) -> (),
+	popBack: (self: any) -> Option<V>,
+	popFront: (self: any) -> Option<V>,
+	pushBack: (self: any, value: V) -> (),
+	pushFront: (self: any, value: V) -> (),
+	remove: (self: any, index: number) -> Option<V>,
+	retain: (self: any, predicate: (value: V) -> boolean) -> (),
+	isEmpty: (self: any) -> boolean,
+	append: (self: any, other: VecDeque<V>) -> (),
+	front: (self: any) -> Option<V>,
+	back: (self: any) -> Option<V>,
+	sort: (self: any, comparator: (a: V, b: V) -> boolean) -> () & (self: any) -> (),
 }
-export type VecDeque<V> = typeof(setmetatable(
-	{} :: {
-		_queue: { V },
-	},
-	{} :: VecDequeImpl<V>
-))
+export type VecDeque<V> = VecDequeImpl<V>
+-- typeof(setmetatable(
+-- 	{} :: {
+-- 		_queue: { V },
+-- 	},
+-- 	{} :: VecDequeImpl<V>
+-- ))
 -- Constants
 -- Variables
 -- References
@@ -47,13 +48,13 @@ export type VecDeque<V> = typeof(setmetatable(
 local VecDeque = {} :: VecDequeImpl<any>
 VecDeque.__index = VecDeque
 
-function VecDeque.__tostring(self: VecDeque<any>): string
+function VecDeque.__tostring(self): string
 	return "VecDeque(" .. Error.displayAsJson(self._queue) .. ")"
 end
-function VecDeque.__len(self: VecDeque<any>): number
+function VecDeque.__len(self): number
 	return #self._queue
 end
-function VecDeque.__iter(self: VecDeque<any>)
+function VecDeque.__iter(self)
 	return ipairs :: any, self._queue
 end
 
@@ -143,14 +144,14 @@ return {
 			_queue = {},
 		}, VecDeque)
 		table.freeze(self)
-		return self
+		return self :: any
 	end,
 	from = function<V>(initial: { V })
 		local self = setmetatable({
 			_queue = table.clone(initial),
 		}, VecDeque)
 		table.freeze(self)
-		return self
+		return self :: any
 	end :: (<V>(initial: { V }?) -> VecDeque<V>) & (<V>() -> VecDeque<V>),
 	isVecDeque = function(value: unknown?): boolean
 		if typeof(value) == "table" then
