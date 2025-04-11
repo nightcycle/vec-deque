@@ -11,10 +11,12 @@ type Entry<V> = {
 	value: V,
 }
 type VecDequeImpl<V> = {
-	__index: VecDequeImpl<V>,
-	__tostring: (self: any) -> string,
-	__len: (self: any) -> number,
-	__iter: (self: any) -> { Entry<V> },
+	-- __index: VecDequeImpl<V>,
+	-- __tostring: (self: any) -> string,
+	-- __len: (self: any) -> number,
+	-- __iter: (self: any) -> { Entry<V> },
+	display: (self: any) -> string,
+	len: (self: any) -> number,
 	contains: (self: any, value: V) -> boolean,
 	clear: (self: any) -> (),
 	drain: (self: any) -> { V },
@@ -32,6 +34,8 @@ type VecDequeImpl<V> = {
 	front: (self: any) -> Option<V>,
 	back: (self: any) -> Option<V>,
 	sort: (self: any, comparator: (a: V, b: V) -> boolean) -> () & (self: any) -> (),
+	forEach: (self: any, callback: (value: V) -> ()) -> (),
+	forEachPair: (self: any, callback: (index: number, value: V) -> ()) -> (),
 }
 export type VecDeque<V> = VecDequeImpl<V>
 -- typeof(setmetatable(
@@ -46,16 +50,36 @@ export type VecDeque<V> = VecDequeImpl<V>
 -- Private Functions
 -- Class
 local VecDeque = {} :: VecDequeImpl<any>
-VecDeque.__index = VecDeque
+local DeprecatedVecDeque = VecDeque :: any
+DeprecatedVecDeque.__index = VecDeque
 
-function VecDeque.__tostring(self): string
-	return "VecDeque(" .. Error.displayAsJson(self._queue) .. ")"
+function DeprecatedVecDeque.__tostring(self): string
+	return self:display()
 end
-function VecDeque.__len(self): number
-	return #self._queue
+function DeprecatedVecDeque.__len(self): number
+	return self:len()
 end
-function VecDeque.__iter(self)
+function DeprecatedVecDeque.__iter(self)
 	return ipairs :: any, self._queue
+end
+
+function VecDeque:display()
+	return "VecDeque(" .. Error.displayAsJson(self._array) .. ")"
+end
+function VecDeque:len()
+	return #self._array
+end
+
+function VecDeque:forEach(callback: (value: any) -> ())
+	for i, value in ipairs(self._map) do
+		callback(value)
+	end
+end
+
+function VecDeque:forEachPair(callback: (i: any, value: any) -> ())
+	for i, value in ipairs(self._map) do
+		callback(i, value)
+	end
 end
 
 function VecDeque:drain(): { any }
