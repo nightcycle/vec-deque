@@ -71,13 +71,13 @@ function VecDeque:len()
 end
 
 function VecDeque:forEach(callback: (value: any) -> ())
-	for i, value in ipairs(self._map) do
+	for i, value in ipairs(self._array) do
 		callback(value)
 	end
 end
 
 function VecDeque:forEachPair(callback: (i: any, value: any) -> ())
-	for i, value in ipairs(self._map) do
+	for i, value in ipairs(self._array) do
 		callback(i, value)
 	end
 end
