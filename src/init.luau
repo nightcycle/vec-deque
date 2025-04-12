@@ -64,20 +64,20 @@ function DeprecatedVecDeque.__iter(self)
 end
 
 function VecDeque:display()
-	return "VecDeque(" .. Error.displayAsJson(self._array) .. ")"
+	return "VecDeque(" .. Error.displayAsJson(self._queue) .. ")"
 end
 function VecDeque:len()
-	return #self._array
+	return #self._queue
 end
 
 function VecDeque:forEach(callback: (value: any) -> ())
-	for i, value in ipairs(self._array) do
+	for i, value in ipairs(self._queue) do
 		callback(value)
 	end
 end
 
 function VecDeque:forEachPair(callback: (i: any, value: any) -> ())
-	for i, value in ipairs(self._array) do
+	for i, value in ipairs(self._queue) do
 		callback(i, value)
 	end
 end
