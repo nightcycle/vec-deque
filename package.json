@@ -13,7 +13,7 @@
 		"prepare": "npmluau"
 	},
 	"dependencies": {
-		"@nightcycle/option": "^0",
+		"@nightcycle/option": "^1",
 		"@nightcycle/error": "^0"
 	},
 	"devDependencies": {
