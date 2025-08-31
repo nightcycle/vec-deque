@@ -154,6 +154,14 @@ function VecDeque:popFront(): Option<any>
 	return Option.from(table.remove(self._queue, 1))
 end
 
+function VecDeque:back(): Option<any>
+	return Option.from(self._queue[#self._queue])
+end
+
+function VecDeque:front(): Option<any>
+	return Option.from(self._queue[1])
+end
+
 function VecDeque:sort(comparator: ((a: any, b: any) -> boolean)?)
 	if comparator then
 		table.sort(self._queue, comparator)
